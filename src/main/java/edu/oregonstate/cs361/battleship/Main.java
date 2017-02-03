@@ -29,6 +29,17 @@ public class Main {
     static String newModel() {
         BattleshipModel game = new BattleshipModel();
         Gson gson = new Gson();
+        game.computer_aircraftcarrier.setstart(new point(2,2));
+        game.computer_aircraftcarrier.setend(new point(2,7));
+        game.ccomputer_battleship.setstart(new point(2,8));
+        game.computer_battleship.setend(new point(6,8));
+        game.computer_cruiser.setstart(new point(4,1));
+        game.computer_cruiser.setend(new point(4,4);
+        game.computer_destoryer.setstart(new point(7,3));
+        game.computer_destoryer.setend(new point(7,5));
+        game.computer_submarine.setstart(new point(9,6));
+        game.computer_submarine.setend(new point(9,8));
+
         String model = new String(gson.toJson(game))
         return model;
     }
