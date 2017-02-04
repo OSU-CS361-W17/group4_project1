@@ -75,13 +75,13 @@ public class BattleshipModel {
 
     public boolean fireShot(Point p) {
         //determines if point is valid
-        for (Point node: playerHits)
+        for (Point node: computerHits)
         {
             if (p.samePointCheck(node)) {
                 return false;
             }
         }
-        for (Point node: playerMisses) {
+        for (Point node: computerMisses) {
             if (p.samePointCheck(node)) {
                 return false;
             }
@@ -98,9 +98,9 @@ public class BattleshipModel {
                 || !hitCheck(p, computer_cruiser)
                 || !hitCheck(p, computer_destroyer)
                 || !hitCheck(p, computer_submarine))) {
-            playerMisses.add(p);
+            computerMisses.add(p);
         } else {
-            playerHits.add(p);
+            computerHits.add(p);
         }
 
         return true;
@@ -114,13 +114,13 @@ public class BattleshipModel {
         //misses, if not move on and check if the shot is a hit or miss
         while (!found) {
 
-            for (Point node: computerHits)
+            for (Point node: playerHits)
             {
                 if (p.samePointCheck(node)) {
                     found = false;
                 }
             }
-            for (Point node: computerMisses) {
+            for (Point node: playerMisses) {
                 if (p.samePointCheck(node)) {
                     found = false;
                 }
@@ -132,9 +132,9 @@ public class BattleshipModel {
                 || !hitCheck(p, cruiser)
                 || !hitCheck(p, destroyer)
                 || !hitCheck(p, submarine))) {
-            computerMisses.add(p);
+            playerMisses.add(p);
         } else {
-            computerHits.add(p);
+            playerHits.add(p);
         }
     }
 
