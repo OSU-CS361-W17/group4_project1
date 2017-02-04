@@ -1,36 +1,44 @@
+package edu.oregonstate.cs361.battleship;
+public class Point{
+    private int Across;
+    private int Down;
 
-public class point implements Comparable<point>{
-    public int x, y;
-
-    public point(int x, int y){
-        this.x = x;
-        this.y = y;
+    //default constructor
+    public Point(int a, int d){
+        this.Across = a;
+        this.Down = d;
     }
 
-    public int getX() {
-        return this.x;
+    public int getAcross() { return this.Across; }
+    public int getDown() { return this.Down; }
+
+    public void setAcross(int x) { this.Across = x; }
+    public void setDown(int y) { this.Down = y; }
+
+
+    public boolean samePointCheck(Point p) {
+        if (p.getAcross() == this.Across && p.getDown() == this.Down) {
+            return true;
+        }
+
+        return false;
     }
-    public int getY(){
-        return this.y;
-    }
-    //public void setpointx(double x){
-     //   this.x = x;
+
+    //@Override
+    //public String toString(){
+        //return (int )(this.x) + " " + (int )(this.y);
     //}
-    //public void setpointy(double y){
-    //    this.y=y;
-   // }
-    public int across(){return this.x;}
-    public int down(){return this.y;}
 
-
+    //dont think this is needed for now
+    /*
     @Override
-    public int compareTo(point n2){
-        int X = this.x-n2.getX();
-        int Y = this.y-n2.getY();
+    public int compareTo(Point n2){
+        int X = this.Across-n2.getAcross();
+        int Y = this.Down-n2.getDown();
         if(X>0) return 1;
         else if(X<0) return -1;
         else if(Y>0) return 1;
         else if(Y<0) return -1;
         else return 0;
-    }
+    }*/
 }

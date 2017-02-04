@@ -10,37 +10,28 @@ import static spark.Spark.staticFiles;
 
 public class Main {
 
-    private static int Min = 1;
-    private static int Max = 10;
-
     public static void main(String[] args) {
         //This will allow us to server the static pages such as index.html, app.js, etc.
         staticFiles.location("/public");
 
         //This will listen to GET requests to /model and return a clean new model
         get("/model", (req, res) -> newModel());
-        //This will listen to POST requests and expects to receive a game model, as well as location to fire to
+        //This will listen to POST requests and expects to receive a game model, as well as location to firze to
         post("/fire/:row/:col", (req, res) -> fireAt(req));
         //This will listen to POST requests and expects to receive a game model, as well as location to place the ship
         post("/placeShip/:id/:row/:col/:orientation", (req, res) -> placeShip(req));
     }
 
     //This function should return a new model
-    static String newModel() {
-        BattleshipModel game = new BattleshipModel();
-        Gson gson = new Gson();
-        game.computer_aircraftcarrier.setstart(new point(2,2));
-        game.computer_aircraftcarrier.setend(new point(2,7));
-        game.ccomputer_battleship.setstart(new point(2,8));
-        game.computer_battleship.setend(new point(6,8));
-        game.computer_cruiser.setstart(new point(4,1));
-        game.computer_cruiser.setend(new point(4,4);
-        game.computer_destoryer.setstart(new point(7,3));
-        game.computer_destoryer.setend(new point(7,5));
-        game.computer_submarine.setstart(new point(9,6));
-        game.computer_submarine.setend(new point(9,8));
+    private static String newModel() {
+        BattleshipModel model = new BattleshipModel();
+        return getJson(model);
+    }
 
-        String model = new String(gson.toJson(game))
+    //Takes a model converts it to json using gson
+    private static String getJson(BattleshipModel m) {
+        Gson gson = new Gson();
+        String model = new String(gson.toJson(m));
         return model;
     }
 
@@ -48,18 +39,45 @@ public class Main {
     private static BattleshipModel getModelFromReq(Request req){
         String Request = req.body();
         Gson gson = new Gson();
-        BattleshipModel ship = gson.fromJson(Request, BattleshipModel.class);
+        BattleshipModel ship =  gson.fromJson(Request, BattleshipModel.class);
         return ship;
     }
 
     //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
     private static String placeShip(Request req) {
-        return "SHIP";
+        BattleshipModel model = getModelFromReq(req);
+
+        //pull data from request
+        String id = req.params("id");
+        String orientation = req.params("orientation");
+        int row = Integer.parseInt(req.params("row"));
+        int col = Integer.parseInt(req.params("col"));
+
+        /*error check
+        if(!model.placeShip(id, row, col, dir)) {
+            //error check needed
+        }*/
+
+        Gson gson = new Gson();
+        String json = gson.toJson(model);
+        return json;
     }
 
     //Similar to placeShip, but with firing.
     private static String fireAt(Request req) {
-        return null;
-    }
+        //grab the target
+        int row = Integer.parseInt(req.params("row"));
+        int col = Integer.parseInt(req.params("col"));
+        Point target = new Point(row, col);
 
+        //grab the model
+        BattleshipModel model = getModelFromReq(req);
+
+        //if target is viable, computer shoots
+        if(model.fireShot(target)) {
+            model.computer_fireShot();
+        }
+
+        return getJson(model);
+    }
 }

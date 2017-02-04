@@ -2,47 +2,67 @@ package edu.oregonstate.cs361.battleship;
 
 //Ship class for Ship.
 public class Ship{
-    //private String user; //id which check whos ships
-    private String shipName;
+    private String name;
     private int length;
-    private point start;  //ship start point
-    private point end;   //ship end point
+    private Point start;
+    private Point end;
 
-    //initialize ship
-    public Ship(String shipName){
-        setName(shipName);//set this ship name, use name to set length
-        if(shipName.equals("AircraftCarrier"))
-            setLength(5);
-        else if(shipName.equals("Battleship"))
-            setLength(4);
-        else if(shipName.equals("Cruiser"))
-            setLength(3);
-        else if(shipName.equals("Destoryer"))
-            setLength(2);
-        else if(shipName.equals("Submarine"))
-            setLength(3);
-
-        header=new point();
-        ender=new point();
+    //constructors
+    public Ship() { }
+    public Ship(String n, int l, Point s, Point e) {
+        this.name = n;
+        this.length = l;
+        this.start = s;
+        this.end = e;
     }
 
-    //function for ship user
-    //public String ShipUser(){return user};
-    //public void setUser(String username){this.user=username;}
+    //getters
+    public String getName() { return this.name; }
+    public int getLength() { return this.length; }
+    public Point getStart() { return this.start; }
+    public Point getEnd() { return this.end; }
 
-    //function for ship name
-    public String ShipName(){return shipName;}
-    public void setName(String name){this.shipName=name;}
+    //setters
+    public void setName(String n) { this.name = n; }
+    public void setLength(int l) { this.length = l; }
+    public void setStart(int x, int y) { this.start = new Point(x,y); }
+    public void setEnd(int x, int y) { this.end = new Point(x,y); }
 
-    //function for ship length
-    public String ShipLength(){return length;}
-    public void setLength(int Length){this.length=Length;}
+    //returns false if there is an overlap
+    public boolean overlapTest(Ship s) {
+        //checks for overlap check of same boat
+        if (s.getName() == this.name) {
+            return true;
+        }
+        //checks if both lines horizantal and overlapping
+        if (s.isHorizantal() == true && this.isHorizantal() == true
+                && s.getEnd().getDown() == this.start.getDown()
+                && s.getEnd().getAcross() >= this.start.getAcross()) {
+            return false;
+        }
+        //checks if both lines vertical and overlapping
+        else if (s.isHorizantal() == false && this.isHorizantal() == false
+                && s.getEnd().getAcross() == this.start.getAcross()
+                && s.getEnd().getDown() >= this.start.getDown()) {
+            return false;
+        }
+        //checks if lines are perpendicular and overlapping
+        else if (s.getEnd().getAcross() >= this.start.getAcross()
+                && s.getEnd().getAcross() <= this.end.getAcross()
+                && s.getStart().getDown() <= this.start.getDown()
+                && s.getEnd().getDown() >= this.start.getDown()) {
+            return false;
+        }
 
-    //function for ship start point
-    public point shipstart(){return start;}
-    public void setstart(point starts){this.start=starts;}
+        return true;
+    }
 
-    //function for ship end point
-    public point shipend(){return end;}
-    public void setend(point ender){this.end=ender;}
+    public boolean isHorizantal() {
+        if (start.getAcross() == end.getAcross()) {
+            return true;
+        } else if (start.getDown() == end.getDown()) {
+            return false;
+        }
+        return false;
+    }
 }
