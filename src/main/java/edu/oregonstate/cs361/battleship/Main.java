@@ -2,6 +2,8 @@ package edu.oregonstate.cs361.battleship;
 
 import com.google.gson.Gson;
 import spark.Request;
+import spark.Spark;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.Spark.staticFiles;
@@ -11,6 +13,8 @@ import static spark.Spark.staticFiles;
 public class Main {
 
     public static void main(String[] args) {
+
+        Spark.exception(Exception.class, (exception, request, response) -> {exception.printStackTrace();});
         //This will allow us to server the static pages such as index.html, app.js, etc.
         staticFiles.location("/public");
 
@@ -58,9 +62,8 @@ public class Main {
             //error check needed
          }
 
-        Gson gson = new Gson();
-        String json = gson.toJson(model);
-        return json;
+
+        return getJson(model);
     }
 
     //Similar to placeShip, but with firing.
@@ -72,6 +75,9 @@ public class Main {
 
         //grab the model
         BattleshipModel model = getModelFromReq(req);
+        if(model==null) {
+            model = new BattleshipModel();
+        }
 
         //if target is viable, computer shoots
         if(model.fireShot(target)) {

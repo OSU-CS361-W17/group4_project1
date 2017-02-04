@@ -31,22 +31,22 @@ public class BattleshipModel {
     //initialize model
     public BattleshipModel() {
         //make a new initialize ship
-        aircraftCarrier = new Ship("AircraftCarrier", 5, new Point(0, 0), new Point(0, 0));
-        battleship = new Ship("Battleship", 4, new Point(0, 0), new Point(0, 0));
-        cruiser = new Ship("Cruiser", 3, new Point(0, 0), new Point(0, 0));
-        destroyer = new Ship("Destroyer", 2, new Point(0, 0), new Point(0, 0));
-        submarine = new Ship("Submarine", 2, new Point(0, 0), new Point(0, 0));
-        computer_aircraftCarrier = new Ship("Computer_AircraftCarrier", 5, new Point(2, 2), new Point(2, 7));
-        computer_battleship = new Ship("Computer_Battleship", 4, new Point(2, 8), new Point(6, 8));
-        computer_cruiser = new Ship("Computer_Cruiser", 3, new Point(4, 1), new Point(4, 4));
-        computer_destroyer = new Ship("Computer_Destroyer", 2, new Point(7, 3), new Point(7, 5));
-        computer_submarine = new Ship("Computer_Submarine", 2, new Point(9, 6), new Point(9, 8));
+        this.aircraftCarrier = new Ship("AircraftCarrier", 5, new Point(0, 0), new Point(0, 0));
+        this.battleship = new Ship("Battleship", 4, new Point(0, 0), new Point(0, 0));
+        this.cruiser = new Ship("Cruiser", 3, new Point(0, 0), new Point(0, 0));
+        this.destroyer = new Ship("Destroyer", 2, new Point(0, 0), new Point(0, 0));
+        this.submarine = new Ship("Submarine", 2, new Point(0, 0), new Point(0, 0));
+        this.computer_aircraftCarrier = new Ship("Computer_AircraftCarrier", 5, new Point(2, 2), new Point(2, 7));
+        this.computer_battleship = new Ship("Computer_Battleship", 4, new Point(2, 8), new Point(6, 8));
+        this.computer_cruiser = new Ship("Computer_Cruiser", 3, new Point(4, 1), new Point(4, 4));
+        this.computer_destroyer = new Ship("Computer_Destroyer", 2, new Point(7, 3), new Point(7, 5));
+        this.computer_submarine = new Ship("Computer_Submarine", 2, new Point(9, 6), new Point(9, 8));
 
 
-        playerHits = new ArrayList<Point>();
-        playerMisses = new ArrayList<Point>();
-        computerHits = new ArrayList<Point>();
-        computerMisses = new ArrayList<Point>();
+        this.playerHits = new ArrayList<Point>();
+        this.playerMisses = new ArrayList<Point>();
+        this.computerHits = new ArrayList<Point>();
+        this.computerMisses = new ArrayList<Point>();
     }
 
     public boolean placeShip(String id, int row, int col, String dir) {
