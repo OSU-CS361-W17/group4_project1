@@ -53,10 +53,10 @@ public class Main {
         int row = Integer.parseInt(req.params("row"));
         int col = Integer.parseInt(req.params("col"));
 
-        /*error check
-        if(!model.placeShip(id, row, col, dir)) {
+        //runs placeShip, catches if there is an error
+        if(!model.placeShip(id, row, col, orientation)) {
             //error check needed
-        }*/
+         }
 
         Gson gson = new Gson();
         String json = gson.toJson(model);
